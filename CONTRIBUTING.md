@@ -36,7 +36,14 @@ For a second edition book, the format should be,
 
 Title2-Author.pdf
 
+
 Use the bulk add script to commit books from the target directory.
+
+```
+
+find <target_dir>/*.pdf | bash bulk_add.sh
+
+```
 
 Push to remote and send a PR.
 
