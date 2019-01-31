@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 getname() {
     name=$(echo $1 | awk -F/ '{print $NF}')
     echo $name
@@ -14,10 +13,13 @@ parsename() {
     echo $msg
 }
 
-pushfile() {
+commitfiles() {
     cp $1 books/
     git add books/$3
     git commit -m "$2"
+}
+
+pushfile() {
     git push origin master
 }
 
@@ -25,5 +27,6 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     prefix="Add "
     fname=$(getname $line)
     commit_message="$prefix$(parsename $fname)"
-    pushfile $line "$commit_message" $fname
+    commitfiles $line "$commit_message" $fname
+    pushfile
 done < "${1:-/dev/stdin}"
